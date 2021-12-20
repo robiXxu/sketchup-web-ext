@@ -19,7 +19,16 @@ touch /tmp/webExt/config.json
 4. navigate inside webExt folder and create a new file called config.json
 ```
 
-## [config.json](config.json) contents
+## [config.json](config.json)
+
+Only the url is required
+
+```json
+{
+  "url": "https://www.google.com"
+}
+```
+
 
 ```json
 {
