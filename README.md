@@ -21,7 +21,7 @@ touch /tmp/webExt/config.json
 
 ## [config.json](config.json) contents
 
-```js
+```json
 {
   "url": "https://www.google.com",
   "width": 1920,
