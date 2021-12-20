@@ -10,7 +10,7 @@ module SketchupWebExt
       configJson = JSON.parse(configData)
       return configJson
     else
-      UI.messagebox("Failed to read #{self.configFile}. Please create the file with the following content '{ URL: \"<url_here>\"}'")
+      UI.messagebox("Failed to read #{self.configFile}. Please create the file with the following content '{ \"url\": \"<url_here>\"}'")
       return nil
     end
   end
