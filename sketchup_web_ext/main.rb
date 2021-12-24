@@ -10,8 +10,8 @@ module SketchupWebExt
       configJson = JSON.parse(configData)
       return configJson
     else
-      UI.messagebox("Failed to read #{self.configFile}. Please create the file with the following content '{ \"url\": \"<url_here>\"}'")
-      return nil
+      self.createDefault
+      self.load_config
     end
   end
 
@@ -53,15 +53,45 @@ module SketchupWebExt
     (/darwin/ =~ RUBY_PLATFORM) != nil
   end
 
-  def self.configFile
-    fileName = "config.json"
-    if self.mac?
-      "/tmp/webExt/#{fileName}"
+  def self.configFolder
+    folder = "webExt"
+    if mac?
+      "/tmp/#{folder}"
     else
-      "%TEMP%/webExt/#{fileName}"
+      "#{ENV['tmp']}\\#{folder}"
     end
   end
 
+  def self.configFile
+    fileName = "config.json"
+    if mac?
+      "#{self.configFolder}/#{fileName}"
+    else
+      "#{self.configFolder}\\#{fileName}"
+    end
+  end
+
+  def self.generateDefaultJson
+    defaultHash = {
+      :url => "https://www.google.com",
+      :width => 1920,
+      :height => 1000,
+      :center => true,
+      :style => "dialog",
+    }
+    JSON.generate(defaultHash)
+  end
+
+  def self.createDefault
+    if !Dir::exists?(self.configFolder)
+      Dir.mkdir self.configFolder
+    end
+    if !File::exists?(self.configFile)
+      f = File.new(self.configFile, "w")
+      f.puts(self.generateDefaultJson.to_s)
+      f.close
+    end
+  end
 
   unless file_loaded?(__FILE__)
     config = self.load_config

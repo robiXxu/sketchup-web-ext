@@ -3,6 +3,8 @@
 
 ## Configuration
 
+**No longer required to be manually created. It will be created automatically if it doesn't exist**
+
 ### On a mac
 
 ```
